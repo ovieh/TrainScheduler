@@ -28,20 +28,25 @@
                 Current Train Schedule
             </div>
             <div class="card-body">
-                <table class="table table-hover">
-                    <tr>
-                        <th>Train Name</th>
-                        <th>Destination</th>
-                        <th>Frequency (min)</th>
-                        <th>Next Arrival</th>
-                        <th>Minutes Away</th>
-                    </tr>
+                <table class="table table-hover" id="train-table">
+                    <thead>
+                        <tr>
+                            <th>Train Name</th>
+                            <th>Destination</th>
+                            <th>Frequency (min)</th>
+                            <th>Next Arrival</th>
+                            <th>Minutes Away</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
 
                 </table>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header bg-dark text-white">
                 Add Train
             </div>
@@ -64,7 +69,7 @@
                         <input type="text" class="form-control" id="train-frequency" placeholder="15">
                     </div>
                     <button class="btn btn-dark" id="add-train-btn" type="submit">Submit</button>
-                    
+
                 </form>
             </div>
         </div>
@@ -72,7 +77,7 @@
 
 
     <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 

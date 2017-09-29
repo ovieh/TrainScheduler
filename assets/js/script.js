@@ -18,7 +18,7 @@
     
     let name = $("#train-name").val().trim();
     let destination = $("#train-destination").val().trim();
-    let initialTime = $("#initial-time").val().trim();
+    let initialTime = moment($("#initial-time").val().trim(), "HH:mm").format();
     let frequency = $("#train-frequency").val().trim();
     
     let newTrain =  {
@@ -30,6 +30,28 @@
 
     database.ref().push(newTrain);
 
-    console.log(newTrain.name);
+    $("#train-name").val('');
+    $("#train-destination").val('');
+    $("#initial-time").val('');
+    $("#train-frequency").val('');
+    
+    console.log(initialTime);
     // return false;
+  });
+
+  // listener for adding trains to database and to the table
+  database.ref().on("child_added", (childSnapshot, prevChildkey) => {
+    let name = childSnapshot.val().name;
+    let destination = childSnapshot.val().destination;
+    let initialTime = childSnapshot.val().initialTime;
+    let frequency = childSnapshot.val().frequency;
+    
+    //concert intialtime to unix
+    let nextArrival, minutesAway;
+
+    nextArrival = moment().diff(moment(initialTime, "X"), "hours")
+
+
+    $("#train-table > tbody").append(`<tr><td> ${name} </td><td> ${destination} </td><td> ${frequency} </td><td> ${nextArrival} </td><td> ${minutesAway} `)
+
   });
