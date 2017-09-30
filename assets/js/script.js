@@ -15,17 +15,17 @@
 
   $("#add-train-btn").on('click', (event) => {
     event.preventDefault();
-    
+
     let name = $("#train-name").val().trim();
     let destination = $("#train-destination").val().trim();
     let initialTime = moment($("#initial-time").val().trim(), "HH:mm").unix();
     let frequency = parseInt($("#train-frequency").val().trim());
-    
-    let newTrain =  {
-        name: name,
-        destination: destination,
-        initialTime: initialTime,
-        frequency: frequency
+
+    let newTrain = {
+      name: name,
+      destination: destination,
+      initialTime: initialTime,
+      frequency: frequency
     };
 
     database.ref().push(newTrain);
@@ -34,7 +34,7 @@
     $("#train-destination").val('');
     $("#initial-time").val('');
     $("#train-frequency").val('');
-    
+
     // console.log(initialTime);
     // return false;
   });
@@ -46,7 +46,7 @@
     let initialTime = moment.unix(childSnapshot.val().initialTime);
     let frequency = childSnapshot.val().frequency;
     let minutesElapsed = moment().diff(initialTime, 'minutes');
-    
+
 
     //convert intialtime to unix
 
