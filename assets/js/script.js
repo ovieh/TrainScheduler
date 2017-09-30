@@ -11,15 +11,15 @@
 
   let database = firebase.database();
 
-  console.log(database);
+  // console.log(database);
 
   $("#add-train-btn").on('click', (event) => {
     event.preventDefault();
     
     let name = $("#train-name").val().trim();
     let destination = $("#train-destination").val().trim();
-    let initialTime = moment($("#initial-time").val().trim(), "HH:mm").format();
-    let frequency = $("#train-frequency").val().trim();
+    let initialTime = moment($("#initial-time").val().trim(), "HH:mm").unix();
+    let frequency = parseInt($("#train-frequency").val().trim());
     
     let newTrain =  {
         name: name,
@@ -35,7 +35,7 @@
     $("#initial-time").val('');
     $("#train-frequency").val('');
     
-    console.log(initialTime);
+    // console.log(initialTime);
     // return false;
   });
 
@@ -43,14 +43,17 @@
   database.ref().on("child_added", (childSnapshot, prevChildkey) => {
     let name = childSnapshot.val().name;
     let destination = childSnapshot.val().destination;
-    let initialTime = childSnapshot.val().initialTime;
+    let initialTime = moment.unix(childSnapshot.val().initialTime);
     let frequency = childSnapshot.val().frequency;
+    let minutesElapsed = moment().diff(initialTime, 'minutes');
     
-    //concert intialtime to unix
-    let nextArrival, minutesAway;
 
-    nextArrival = moment().diff(moment(initialTime, "X"), "hours")
+    //convert intialtime to unix
 
+    let minutesAway = frequency - minutesElapsed % frequency;
+
+    let nextArrival = moment().add(minutesAway, "m").format("HH:mm");
+    console.log(initialTime);
 
     $("#train-table > tbody").append(`<tr><td> ${name} </td><td> ${destination} </td><td> ${frequency} </td><td> ${nextArrival} </td><td> ${minutesAway} `)
 
